@@ -1,0 +1,32 @@
+<div>
+  <label for="priorityDropdown">Priority:</label>
+  <select id="priorityDropdown" [(ngModel)]="selectedPriority" (change)="onPriorityChange()">
+    <option value="">All</option>
+    <option value="LOW">Low</option>
+    <option value="MEDIUM">Medium</option>
+    <option value="HIGH">High</option>
+  </select>
+</div>
+<br />
+<table border="1" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>Due Date</th>
+      <th>Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.dueDate }}</td>
+      <td>
+        <input type="checkbox" [checked]="task.completed" disabled />
+      </td>
+    </tr>
+  </tbody>
+</table>
