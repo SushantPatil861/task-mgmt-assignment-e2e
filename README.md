@@ -41,16 +41,29 @@ A simple E2E Java Spring Boot Angular application for managing tasks, built with
 ```bash
 git clone https://github.com/SushantPatil861/task-mgmt-assignment-e2e.git
 ```
-### 2. Build and Run dockerized backend service
+### 2. Build, Run, Publish dockerized backend service
 
 ```bash
 cd task-mgmt-backend
 ./docker-build-run.sh
+./docker-publish.sh
 ```
-### 3. Build and Run dockerized backend service
+### 3. Build and Run UI application
 
 ```bash
 cd task-mgmt-ui
 npm ci --force
 npm run start
+```
+### 4. Configure Lambda
+ - Runs daily
+ - Calls the endpoint: /api/v1/tasks?dueBefore=&lt;today&gt;&amp;completed=false.
+ - Logs (or sends) an alert for each overdue task.
+
+```bash
+cd task-mgmt-lambda-overdue-alert
+mvn clean package shade:shade
+Upload the generated .jar to AWS Lambda
+Set Handler in AWS Lambda as => com.assignment.lambda.OverdueTaskNotifier::handleRequest
+Configure a CloudWatch Event rule with a cron expression to trigger the lambda daily
 ```
